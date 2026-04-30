@@ -1,0 +1,51 @@
+# Maven build output
+/target/
+
+# Logs
+*.log
+
+# Compiled files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven wrapper (genelde dahil edilir ama istersen ignore edebilirsin)
+# .mvn/wrapper/maven-wrapper.jar
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
+*~
+
+# Environment variables
+.env
+
+# Test reports
+surefire-reports/
+failsafe-reports/
+
+# Generated files
+dependency-reduced-pom.xml
+
+# Coverage
+coverage/
+jacoco.exec
+
+# Node (frontend varsa)
+/node_modules/
+/dist/
+
+# Misc
+*.pid
+*.seed
