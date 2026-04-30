@@ -45,10 +45,10 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests) throws InvalidPurchaseException {
-        validate(accountId, ticketTypeRequests);
+        validatePurchaseTicketRequest(accountId, ticketTypeRequests);
 
-        int adults = count(ticketTypeRequests, Type.ADULT);
-        int children = count(ticketTypeRequests, Type.CHILD);
+        int adults = ticketCount(ticketTypeRequests, Type.ADULT);
+        int children = ticketCount(ticketTypeRequests, Type.CHILD);
 
         int totalAmount = (adults * ADULT_PRICE) + (children * CHILD_PRICE);
         int totalSeats = adults + children;
@@ -57,7 +57,7 @@ public class TicketServiceImpl implements TicketService {
         seatService.reserveSeat(accountId, totalSeats);
     }
 
-    private void validate(Long accountId, TicketTypeRequest[] requests) {
+    private void validatePurchaseTicketRequest(Long accountId, TicketTypeRequest[] requests) {
 
         if (accountId == null || accountId <= 0) {
             throw new InvalidPurchaseException();
@@ -67,9 +67,9 @@ public class TicketServiceImpl implements TicketService {
             throw new InvalidPurchaseException();
         }
 
-        int adults = count(requests, Type.ADULT);
-        int children = count(requests, Type.CHILD);
-        int infants = count(requests, Type.INFANT);
+        int adults = ticketCount(requests, Type.ADULT);
+        int children = ticketCount(requests, Type.CHILD);
+        int infants = ticketCount(requests, Type.INFANT);
 
         int total = adults + children + infants;
 
@@ -87,7 +87,7 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
-    private int count(TicketTypeRequest[] requests, Type type) {
+    private int ticketCount(TicketTypeRequest[] requests, Type type) {
         int count = 0;
 
         for (TicketTypeRequest request : requests) {
